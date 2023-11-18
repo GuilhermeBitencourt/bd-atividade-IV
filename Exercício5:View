@@ -1,0 +1,38 @@
+
+CREATE TABLE clientes (
+    id_cliente INT PRIMARY KEY,
+    nome VARCHAR(100),
+    endereco VARCHAR(255),
+    cidade VARCHAR(100)
+);
+
+CREATE TABLE pagamentos (
+    id_pagamento INT PRIMARY KEY,
+    id_cliente INT,
+    data_pagamento DATE,
+    valor_pagamento DECIMAL(10, 2),
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+);
+
+
+INSERT INTO clientes (id_cliente, nome, endereco, cidade) VALUES
+(1, 'Guilherme', 'Rua A, 123', 'São Paulo'),
+(2, 'Paulo', 'Av. B, 456', 'Rio de Janeiro'),
+(3, 'Carlos', 'Rua C, 789', 'São Paulo'),
+(4, 'Ana', 'Av. D, 987', 'Belo Horizonte');
+
+INSERT INTO pagamentos (id_pagamento, id_cliente, data_pagamento, valor_pagamento) VALUES
+(101, 1, '2023-10-01', 1500.00),
+(102, 1, '2023-10-05', 750.50),
+(103, 2, '2023-10-02', 2000.00),
+(104, 2, '2023-10-10', 500.25),
+(105, 3, '2023-09-30', 3000.00),
+(106, 4, '2023-10-15', 1000.75),
+(107, 4, '2023-10-20', 550.20);
+
+
+CREATE VIEW relatorio_pagamentos_cidade AS
+SELECT c.cidade AS cidade_cliente, SUM(p.valor_pagamento) AS total_pagamentos
+FROM clientes c
+LEFT JOIN pagamentos p ON c.id_cliente = p.id_cliente
+GROUP BY c.cidade;
