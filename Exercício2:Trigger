@@ -1,3 +1,20 @@
+
+CREATE TABLE contas (
+    id_conta INT PRIMARY KEY,
+    nome VARCHAR(100),
+    saldo DECIMAL(10, 2)
+);
+
+
+CREATE TABLE transacoes (
+    id_transacao INT PRIMARY KEY,
+    id_conta INT,
+    tipo VARCHAR(10),
+    valor DECIMAL(10, 2),
+    FOREIGN KEY (id_conta) REFERENCES contas(id_conta)
+);
+
+
 CREATE TRIGGER atualizar_saldo_transacao
 AFTER INSERT ON transacoes
 FOR EACH ROW
