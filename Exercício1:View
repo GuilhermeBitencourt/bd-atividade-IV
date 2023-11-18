@@ -17,8 +17,8 @@ CREATE TABLE pedidos (
 
 INSERT INTO clientes (id_cliente, nome, email, telefone) VALUES
 (1, 'João', 'joao@email.com', '123456789'),
-(2, 'Maria', 'maria@email.com', '987654321'),
-(3, 'Carlos', 'carlos@email.com', '111222333'),
+(2, 'Bruno', 'Bruno@email.com', '987654321'),
+(3, 'Mario', 'mario@email.com', '111584333'),
 (4, 'Ana', 'ana@email.com', '444555666');
 
 INSERT INTO pedidos (id_pedido, id_cliente, data_pedido, valor_total) VALUES
