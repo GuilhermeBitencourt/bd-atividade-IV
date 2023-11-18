@@ -1,0 +1,21 @@
+CREATE TRIGGER atualizar_saldo_transacao
+AFTER INSERT ON transacoes
+FOR EACH ROW
+BEGIN
+    DECLARE tipo_transacao VARCHAR(10);
+    DECLARE valor_transacao DECIMAL(10, 2);
+    
+    SELECT tipo, valor INTO tipo_transacao, valor_transacao
+    FROM transacoes
+    WHERE id_transacao = NEW.id_transacao;
+    
+    IF tipo_transacao = 'entrada' THEN
+        UPDATE contas
+        SET saldo = saldo + valor_transacao
+        WHERE id_conta = NEW.id_conta;
+    ELSEIF tipo_transacao = 'saída' THEN
+        UPDATE contas
+        SET saldo = saldo - valor_transacao
+        WHERE id_conta = NEW.id_conta;
+    END IF;
+END;
